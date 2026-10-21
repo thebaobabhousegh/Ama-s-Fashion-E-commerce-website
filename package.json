@@ -1,0 +1,31 @@
+{
+  "name": "amas-fashion",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server/index.mjs && node --check server/commerce.mjs && node --check server/seed.mjs && node --check dist/app.js && node --check dist/production.js && node --check dist/admin.js && node --check server/management.mjs && node --check server/setup-admin.mjs && node --check server/images.mjs",
+    "seed:draft": "node --env-file-if-exists=.env server/seed.mjs",
+    "setup:admin": "node --env-file-if-exists=.env server/setup-admin.mjs",
+    "reset:admin": "node --env-file-if-exists=.env server/setup-admin.mjs --reset",
+    "prepare:cloud": "node scripts/prepare-cloud.mjs",
+    "check:cloud": "node --check cloud/commerce.mjs && node --check cloud/management.mjs && node --check cloud/handler.mjs && node --check cloud/database.mjs && node --check cloud/images.mjs && node --check cloud/import-local.mjs && node --check cloud/setup-admin.mjs && node --check api/handler.js",
+    "build:vercel": "npm run prepare:cloud && npm run check:cloud",
+    "cloud:init": "node --env-file=.env.vercel cloud/init.mjs",
+    "cloud:import-local": "node --env-file=.env.vercel cloud/import-local.mjs",
+    "cloud:setup-admin": "node --env-file=.env.vercel cloud/setup-admin.mjs",
+    "cloud:reset-admin": "node --env-file=.env.vercel cloud/setup-admin.mjs --reset"
+  },
+  "dependencies": {
+    "@libsql/client": "0.18.0",
+    "@vercel/blob": "2.8.2"
+  },
+  "devDependencies": {
+    "acorn": "8.19.0"
+  }
+}
